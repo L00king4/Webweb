@@ -9,7 +9,5 @@ namespace Webweb.Services.Interfaces.Repos.Competitions
 {
     public interface ICompetitionAttendanceRepo : IBaseAttendanceRepo<CompetitionAttendance>
     {
-        public void RemoveAsync(CompetitionAttendance model);
-        public void RemoveRangeAsync(IEnumerable<CompetitionAttendance> models);
     }
 }

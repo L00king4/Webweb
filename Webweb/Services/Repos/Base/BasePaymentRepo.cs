@@ -19,5 +19,20 @@ namespace Webweb.Services.Repos.Base
         {
             throw new NotImplementedException();
         }
+
+        public Task<T> GetByModelAsync(IBasePayment model)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task RemoveAsync(IBasePayment model)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task RemoveRangeAsync(IBasePayment model)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

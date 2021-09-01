@@ -17,9 +17,25 @@ namespace Webweb.Services.Repos.Base
 
         public virtual async Task<bool> AlreadyExistsAsync(IBaseAttendance model)
         {
-            return await Task.Run(() => _db.Set<T>().FirstOrDefault(
-               x => ((IBaseAttendance) x).EventID == model.EventID && ((IBaseAttendance)x).TraineeID == model.TraineeID
-            ) != null);
+            return await GetByModelAsync(model) != null;
+        }
+
+        public virtual async Task RemoveAsync(IBaseAttendance model)
+        {
+            var a = await GetByModelAsync(model);
+            await Task.Run(() => _db.Set<T>().Remove(a));
+        }
+
+        public virtual async Task RemoveRangeAsync(IBaseAttendance model)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<T> GetByModelAsync(IBaseAttendance model)
+        {
+            return await FirstAsync(
+                x => ((IBaseAttendance)x).TraineeID == model.TraineeID && ((IBaseAttendance)x).EventID == model.EventID
+            );
         }
     }
 }

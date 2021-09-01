@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
+using WebEntities.DB.Models.Interfaces;
 using WebEntities.Models;
 using WebEntities.Models.Competitions;
 using Webweb.Addons;
@@ -14,7 +15,7 @@ using Webweb.Services.Interfaces;
 namespace Webweb.Controllers
 {
     //[Route("competitions")]
-    public class CompetitionsController : BaseController<IUnitOfCompetition, Competition>
+    public class CompetitionsController : BaseController<IUnitOfCompetition, Competition, IBaseEvent>
     {
         public CompetitionsController(IMapper mapper, IUnitOfCompetition unit, IUnitOfWork allunit) : base(mapper, unit, allunit)
         {

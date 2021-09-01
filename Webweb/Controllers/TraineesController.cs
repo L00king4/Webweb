@@ -10,7 +10,7 @@ using Webweb.Services.Interfaces.Units;
 
 namespace Webweb.Controllers
 {
-    public class TraineesController : BaseController<IUnitOfTrainee, Trainee>
+    public class TraineesController : BaseController<IUnitOfTrainee, Trainee, >
     {
         public TraineesController(IMapper mapper, IUnitOfTrainee unit, IUnitOfWork allunit) : base(mapper, unit, allunit)
         {

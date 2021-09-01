@@ -8,7 +8,7 @@ using WebEntities.Models.Trainings;
 
 namespace WebEntities.Models
 {
-    public class Trainee
+    public class Trainee : IBaseTrainee
     {
         [Key]
         public int ID { set; get; }

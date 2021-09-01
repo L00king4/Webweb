@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WebEntities.DB.Models.Interfaces;
 using WebEntities.Models;
 using WebEntities.Models.Competitions;
 using Webweb.Services.Interfaces;
@@ -11,7 +12,7 @@ using Webweb.Services.Interfaces;
 namespace Webweb.Controllers
 {
 
-    public class CompetitionAttendancesController : BaseController<IUnitOfCompetition, CompetitionAttendance>
+    public class CompetitionAttendancesController : BaseController<IUnitOfCompetition, CompetitionAttendance, IBaseAttendance>
     {
         public CompetitionAttendancesController(IMapper mapper, IUnitOfCompetition unit, IUnitOfWork allunit) : base(mapper, unit, allunit)
         {
@@ -24,35 +25,28 @@ namespace Webweb.Controllers
         }
 
         [HttpPost("[controller]/add")]
-        public async Task<bool> AddIfUnique([FromBody] CompetitionAttendance model)
+        public async Task<int> AddIfUnique([FromBody] CompetitionAttendance model)
         {
             if (ModelState.IsValid && !await _unit.Attendances.AlreadyExistsAsync(model))
             {
                 await Task.Run(() => _unit.Attendances.AddAsync(model));
-                return await _unit.SaveAsync() > 0;
+                return await _unit.SaveAsync();
 
             }
 
-            return false;
-        }
-
-        [HttpGet("[controller]/test")]
-        public async Task<bool> testt()
-        {
-            return await _unit.Attendances.AlreadyExistsAsync(new CompetitionAttendance { EventID = 2, TraineeID = 1 });
+            return -1;
         }
 
         [HttpPost("[controller]/remove")]
-        public async Task<bool> Remove([FromBody] CompetitionAttendance model)
+        public async Task<int> Remove([FromBody] CompetitionAttendance model)
         {
             if (ModelState.IsValid)
             {
-                await Task.Run(() => _unit.Attendances.RemoveAsync(model));
-                return await _unit.SaveAsync() > 0;
-
+                await _unit.Attendances.RemoveAsync(model);
+                return await _unit.SaveAsync();
             }
 
-            return false;
+            return -1;
         }
     }
 }

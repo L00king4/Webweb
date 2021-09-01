@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Webweb.Services.Interfaces.Repos;
+using Webweb.Services.Interfaces.Repos.Base;
 using Webweb.Services.Interfaces.Repos.Competitions;
 using Webweb.Services.Interfaces.Repos.PayedEvents;
 using Webweb.Services.Interfaces.Repos.Trainings;

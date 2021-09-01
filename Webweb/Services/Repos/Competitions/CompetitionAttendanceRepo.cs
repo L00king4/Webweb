@@ -16,15 +16,5 @@ namespace Webweb.Services.Repos.Competitions
         public CompetitionAttendanceRepo(AppDbContext db) : base(db)
         {
         }
-
-        public void RemoveAsync(CompetitionAttendance model)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void RemoveRangeAsync(IEnumerable<CompetitionAttendance> models)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

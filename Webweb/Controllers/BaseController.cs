@@ -7,6 +7,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using WebEntities;
+using WebEntities.DB.Models.Interfaces;
 using Webweb.Controllers.Interfaces;
 using Webweb.Services.Interfaces;
 using Webweb.Services.Interfaces.Repos.Base;
@@ -16,11 +17,11 @@ namespace Webweb.Controllers
     [Route("api")]
     public class BaseController<
         TISpecificUnitOfWork,
-        TModel> : Controller where TModel : class
+        TModel,
+        TIBaseModel> : Controller where TModel : class
     {
         protected IMapper _mapper { get; }
         protected TISpecificUnitOfWork _unit { get; }
-
         private IUnitOfWork _allunit { get; }
 
         public BaseController(
@@ -34,11 +35,22 @@ namespace Webweb.Controllers
             _allunit = allunit;
         }
 
+        //private IBaseModelRepo<TModel, IBaseModel> GetRepo() {
+        //    _allunit.GetRepo<IBaseModelRepo<TModel, IBaseModel>>();
+        //}
+
         [HttpGet("[controller]")]
         [HttpGet("[controller]/all")]
         public virtual async Task<IEnumerable<TModel>> GetAll()
         {
-            return await _allunit.GetRepo<IBaseRepo<TModel>>().GetAllAsync();
+            return await _allunit.GetRepo<IBaseModelRepo<TModel, TIBaseModel>>().GetAllAsync();
+            //return await _allunit.GetRepo<IBaseRepo<TModel>>().GetAllAsync();
+        }
+
+        [HttpGet("[controller]/add")]
+        public virtual async Task<int> AddAsync(TModel model) {
+            await _allunit.GetRepo<IBaseModelRepo<TModel, IBaseModel>>().AddAsync(model);
+            return await _allunit.SaveAsync();
         }
 
 
