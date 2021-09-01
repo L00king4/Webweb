@@ -44,7 +44,6 @@ namespace Webweb.Controllers
         public virtual async Task<IEnumerable<TModel>> GetAll()
         {
             return await _allunit.GetRepo<IBaseModelRepo<TModel, TIBaseModel>>().GetAllAsync();
-            //return await _allunit.GetRepo<IBaseRepo<TModel>>().GetAllAsync();
         }
 
         [HttpGet("[controller]/add")]

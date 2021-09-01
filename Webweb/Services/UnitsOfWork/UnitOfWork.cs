@@ -54,7 +54,7 @@ namespace Webweb.Services.UnitsOfWork
 
         public void Dispose()
         {
-
+           
             _db.Dispose();
 
         }
@@ -67,6 +67,7 @@ namespace Webweb.Services.UnitsOfWork
         public T GetRepo<T>()
         {
             return (T)GetType().GetProperties().FirstOrDefault(x => typeof(T).IsAssignableFrom(x.PropertyType)).GetValue(this);
+            //return (T)GetType().GetProperties().FirstOrDefault(x => typeof(T).IsAssignableFrom(x.PropertyType)).GetValue(this);
         }
     }
 }
