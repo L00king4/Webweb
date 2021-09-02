@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
-using WebEntities.Models.BaseModels;
+using WebEntities.DB.Models.Interfaces;
 
 namespace Webweb.Services.Interfaces.Repos.Base
 {
-    public interface IBaseModelRepo<TIBaseModel> : IBaseRepo<T>
+    public interface IBaseModelRepo<TModel, TBaseModel> : IBaseRepo<TModel> where TModel : class
     {
-        public Task<bool> AlreadyExistsAsync(TIBaseModel model);
-        public Task RemoveAsync(TIBaseModel model);
-        public Task RemoveRangeAsync(TIBaseModel model);
-        public Task<TIBaseModel> GetByModelAsync(TIBaseModel model); 
+        public Task<bool> AlreadyExistsAsync(TBaseModel model);
+        public Task RemoveAsync(TBaseModel model);
+        public Task RemoveRangeAsync(TBaseModel model);
+        public Task<TModel> GetByModelAsync(TBaseModel model); 
     }
 }

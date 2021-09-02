@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace Webweb.Services.Interfaces.Repos.Base
 {
-    public interface IBaseRepo<T> where T : class
+    public interface IBaseRepo<TModel> where TModel : class
     {
-        public Task<IEnumerable<T>> GetAllAsync();
-        public Task<T> GetByIDAsync(int id);
-        public Task AddAsync(T model);
-        public Task AddRangeAsync(IEnumerable<T> models);
-        public Task<IQueryable<T>> WhereAsync(Expression<Func<T, bool>> expression);
-        public Task<T> FirstAsync(Expression<Func<T, bool>> expression);
-        public Task<T> FindAsync(int id);
+        public Task<IEnumerable<TModel>> GetAllAsync();
+        public Task<TModel> GetByIDAsync(int id);
+        public Task AddAsync(TModel model);
+        public Task AddRangeAsync(IEnumerable<TModel> models);
+        public Task<IQueryable<TModel>> WhereAsync(Expression<Func<TModel, bool>> expression);
+        public Task<TModel> FirstAsync(Expression<Func<TModel, bool>> expression);
+        public Task<TModel> FindAsync(int id);
     }
 }

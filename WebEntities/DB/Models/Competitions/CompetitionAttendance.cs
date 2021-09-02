@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using WebEntities.Models.BaseModels;
+using WebEntities.DB.Models.BaseModels;
 
 namespace WebEntities.Models.Competitions
 {
-    public class CompetitionAttendance : BaseAttandance<Competition, CompetitionPayment>
+    public class CompetitionAttendance : BaseAttendance
     {
     }
 }

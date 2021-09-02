@@ -12,13 +12,14 @@ using Webweb.Addons;
 using Webweb.Controllers.BaseControllers;
 using Webweb.Models.Competitions;
 using Webweb.Services.Interfaces;
+using Webweb.Services.UnitsOfWork;
 
-namespace Webweb.Controllers
+namespace Webweb.Controllers.Competitions
 {
     //[Route("competitions")]
-    public class CompetitionsController : BaseController<IUnitOfCompetition, Competition, IBaseEvent>
+    public class CompetitionsController : BaseEventController<IUnitOfCompetition, Competition>
     {
-        public CompetitionsController(IMapper mapper, IUnitOfCompetition unit, IAllUnitsOfWork allunit) : base(mapper, unit, allunit)
+        public CompetitionsController(IMapper mapper, IUnitOfCompetition unit, AllUnitOfWork allunit) : base(mapper, unit, allunit)
         {
         }
 
@@ -36,7 +37,7 @@ namespace Webweb.Controllers
         {
             var attendances = await _unit.Attendances.WhereAsync(x => x.EventID == eventID);
             var trainees = await _unit.Trainees.GetAllAsync();
-            
+
             var attendingTrainees = trainees.Where(
                 x => attendances.Any(
                     y => y.TraineeID == x.ID

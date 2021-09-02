@@ -8,12 +8,13 @@ using WebEntities.DB.Models.Interfaces;
 using WebEntities.Models.Competitions;
 using Webweb.Controllers.BaseControllers;
 using Webweb.Services.Interfaces;
+using Webweb.Services.UnitsOfWork;
 
 namespace Webweb.Controllers.Competitions
 {
     public class CompetitionAttendancesController : BaseAttendanceController<IUnitOfCompetition, CompetitionAttendance>
     {
-        public CompetitionAttendancesController(IMapper mapper, IUnitOfCompetition unit, IAllUnitsOfWork allunit) : base(mapper, unit, allunit)
+        public CompetitionAttendancesController(IMapper mapper, IUnitOfCompetition unit, AllUnitOfWork allunit) : base(mapper, unit, allunit)
         {
         }
 

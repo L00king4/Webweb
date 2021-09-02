@@ -18,21 +18,21 @@ namespace Webweb.Controllers.BaseControllers
     public class BaseController<
         TISpecificUnitOfWork,
         TModel,
-        TIBaseModel> : Controller where TModel : class
+        TBaseModel> : Controller where TModel : class
     {
         protected IMapper _mapper { get; }
         protected TISpecificUnitOfWork _unit { get; }
-        protected AllUnitsOfWork _allunits { get; }
+        protected AllUnitOfWork _allunit { get; }
 
         public BaseController(
             IMapper mapper
             ,TISpecificUnitOfWork unit
-            ,AllUnitsOfWork allunits
+            ,AllUnitOfWork allunit
         )
         {
             _mapper = mapper;
             _unit = unit;
-            _allunits = allunits;
+            _allunit = allunit;
         }
 
         //private IBaseModelRepo<TModel, IBaseModel> GetRepo() {
@@ -43,19 +43,19 @@ namespace Webweb.Controllers.BaseControllers
         [HttpGet("[controller]/all")]
         public virtual async Task<IEnumerable<TModel>> GetAll()
         {
-            
-            return await _allunits.GetUnit<TISpecificUnitOfWork>().GetRepo<TModel>() _allunit.GetRepo<IBaseModelRepo<TModel, TIBaseModel>>().GetAllAsync();
+
+            return await _allunit.GetRepo<IBaseRepo<TModel>>().GetAllAsync();
         }
 
         [HttpGet("[controller]/add")]
         public virtual async Task<int> AddAsync(TModel model) {
-            await _allunit.GetRepo<IBaseModelRepo<TModel, TIBaseModel>>().AddAsync(model);
+            await _allunit.GetRepo<IBaseRepo<TModel>>().AddAsync(model);
             return await _allunit.SaveAsync();
         }
 
         [HttpGet("[controller]/{id}")]
         public virtual async Task<TModel> GetByID(int id) {
-            return await _allunit.GetRepo<IBaseModelRepo<TModel, TIBaseModel>>().GetByIDAsync(id);
+            return await _allunit.GetRepo<IBaseRepo<TModel>>().GetByIDAsync(id);
         }
 
 

@@ -5,6 +5,7 @@ using System.Linq.Expressions;
 using System.Threading.Tasks;
 using WebEntities;
 using WebEntities.DB.Models.Interfaces;
+using WebEntities.DB.Models.BaseModels;
 using Webweb.Services.Interfaces.Repos.Base;
 
 namespace Webweb.Services.Repos.Base
@@ -15,22 +16,22 @@ namespace Webweb.Services.Repos.Base
         {
         }
 
-        public virtual async Task<bool> AlreadyExistsAsync(IBasePayment model)
+        public virtual async Task<bool> AlreadyExistsAsync(BasePayment model)
         {
             throw new NotImplementedException();
         }
 
-        public Task<T> GetByModelAsync(IBasePayment model)
+        public Task<T> GetByModelAsync(BasePayment model)
         {
             throw new NotImplementedException();
         }
 
-        public Task RemoveAsync(IBasePayment model)
+        public Task RemoveAsync(BasePayment model)
         {
             throw new NotImplementedException();
         }
 
-        public Task RemoveRangeAsync(IBasePayment model)
+        public Task RemoveRangeAsync(BasePayment model)
         {
             throw new NotImplementedException();
         }

@@ -59,7 +59,7 @@ namespace Webweb
             services.AddTransient<IUnitOfPayedEvent, UnitOfPayedEvent>();
             services.AddTransient<IUnitOfTraining, UnitOfTraining>();
             services.AddTransient<IUnitOfTrainee, UnitOfTrainee>();
-            services.AddTransient<IAllUnitsOfWork, AllUnitsOfWork>();
+            services.AddTransient<AllUnitOfWork, AllUnitOfWork>();
             if (Configuration["react"].Equals("yes"))
             {
                 services.AddSpaStaticFiles(configuration =>

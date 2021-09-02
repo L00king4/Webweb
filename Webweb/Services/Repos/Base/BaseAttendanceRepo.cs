@@ -5,36 +5,37 @@ using System.Linq.Expressions;
 using System.Threading.Tasks;
 using WebEntities;
 using WebEntities.DB.Models.Interfaces;
+using WebEntities.DB.Models.BaseModels;
 using Webweb.Services.Interfaces.Repos.Base;
 
 namespace Webweb.Services.Repos.Base
 {
-    public class BaseAttendanceRepo<T> : BaseRepo<T>, IBaseAttendanceRepo<T> where T : class
+    public class BaseAttendanceRepo<T> : BaseRepo<T>, IBaseAttendanceRepo<T> where T : BaseAttendance
     {
         public BaseAttendanceRepo(AppDbContext db) : base(db)
         {
         }
-        
-        public virtual async Task<bool> AlreadyExistsAsync(IBaseAttendance model)
+
+        public virtual async Task<bool> AlreadyExistsAsync(BaseAttendance model)
         {
             return await GetByModelAsync(model) != null;
         }
 
-        public virtual async Task RemoveAsync(IBaseAttendance model)
+        public virtual async Task RemoveAsync(BaseAttendance model)
         {
             var a = await GetByModelAsync(model);
             await Task.Run(() => _db.Set<T>().Remove(a));
         }
 
-        public virtual async Task RemoveRangeAsync(IBaseAttendance model)
+        public virtual async Task RemoveRangeAsync(BaseAttendance model)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<T> GetByModelAsync(IBaseAttendance model)
+        public async Task<T> GetByModelAsync(BaseAttendance model)
         {
             return await FirstAsync(
-                x => ((IBaseAttendance)x).TraineeID == model.TraineeID && ((IBaseAttendance)x).EventID == model.EventID
+                x => x.TraineeID == model.TraineeID && x.EventID == model.EventID
             );
         }
     }

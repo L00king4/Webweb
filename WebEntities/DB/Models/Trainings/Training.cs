@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 using WebEntities.Enums;
-using WebEntities.Models.BaseModels;
+using WebEntities.DB.Models.BaseModels;
 
 namespace WebEntities.Models.Trainings
 {
-    public class Training : BaseEvent<TrainingAttendance, TrainingPayment>
+    public class Training : BaseEvent
     {
         [Required]
         public new DateTime Date { set; get; }
