@@ -6,7 +6,7 @@ using Webweb.Services.Interfaces.Repos.Trainings;
 
 namespace Webweb.Services.Interfaces
 {
-    public interface IUnitOfTraining : IDisposable, IGroupUnitOfWork
+    public interface IUnitOfTraining : IDisposable, ISpecificUnitOfWork
     {
         ITrainingRepo Events { get; }
         ITrainingAttendanceRepo Attendances { get; }

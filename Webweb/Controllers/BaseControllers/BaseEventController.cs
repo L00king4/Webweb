@@ -3,40 +3,27 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.Json;
 using System.Threading.Tasks;
 using WebEntities.DB.Models.Interfaces;
-using WebEntities.Models;
-using WebEntities.Models.Competitions;
-using Webweb.Addons;
-using Webweb.Controllers.BaseControllers;
 using Webweb.Models.Competitions;
 using Webweb.Services.Interfaces;
+using Webweb.Services.Interfaces.Repos.Base;
 
-namespace Webweb.Controllers
+namespace Webweb.Controllers.BaseControllers
 {
-    //[Route("competitions")]
-    public class CompetitionsController : BaseController<IUnitOfCompetition, Competition, IBaseEvent>
+    public class BaseEventController<TISpecificUnitOfWork, TModel> : BaseController<TISpecificUnitOfWork, TModel, IBaseEvent> where TModel : class where TISpecificUnitOfWork: ISpecificUnitOfWork
     {
-        public CompetitionsController(IMapper mapper, IUnitOfCompetition unit, IUnitOfWork allunit) : base(mapper, unit, allunit)
+        public BaseEventController(IMapper mapper, TISpecificUnitOfWork unit, IUnitOfWork allunit) : base(mapper, unit, allunit)
         {
         }
-
-
-        //[HttpGet("")]
-        //[HttpGet("all")]
-        //public async Task<IEnumerable<Competition>> GetAllEvents()
-        //{
-        //    return await _unit.Events.GetAllAsync();
-        //}
-
 
         [HttpGet("[controller]/{eventID}/trainees")]
         public async Task<SortedTrainees> GetAttendingTrainees(int eventID)
         {
-            var attendances = await _unit.Attendances.WhereAsync(x => x.EventID == eventID);
-            var trainees = await _unit.Trainees.GetAllAsync();
-            
+            var attendances = await _unit.
+                await _allunit.GetRepo<IBaseModelRepo<TModel, IBaseAttendance>>().WhereAsync(x => ((IBaseAttendance)x).EventID == eventID);
+            var trainees = await _allunit.Trainees.GetAllAsync();
+
             var attendingTrainees = trainees.Where(
                 x => attendances.Any(
                     y => y.TraineeID == x.ID
@@ -49,7 +36,5 @@ namespace Webweb.Controllers
                 NotAttendingTrainees = notAttendingTrainees.ToList()
             };
         }
-
-        // 2000-10-10T11:12:12
     }
 }

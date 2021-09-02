@@ -6,7 +6,7 @@ using Webweb.Services.Interfaces.Repos.Competitions;
 
 namespace Webweb.Services.Interfaces
 {
-    public interface IUnitOfCompetition : IDisposable, IGroupUnitOfWork
+    public interface IUnitOfCompetition : IDisposable, ISpecificUnitOfWork
     {
         ICompetitionRepo Events { get; }
         ICompetitionAttendanceRepo Attendances { get; }

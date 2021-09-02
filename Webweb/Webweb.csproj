@@ -36,7 +36,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\BaseControllers\" />
     <Folder Include="Controllers\Generic\" />
     <Folder Include="Controllers\Trainings\" />
     <Folder Include="Controllers\PayedEvents\" />

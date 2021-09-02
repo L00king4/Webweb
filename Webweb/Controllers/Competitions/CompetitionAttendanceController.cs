@@ -1,13 +1,22 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WebEntities.DB.Models.Interfaces;
+using WebEntities.Models.Competitions;
+using Webweb.Controllers.BaseControllers;
+using Webweb.Services.Interfaces;
 
 namespace Webweb.Controllers.Competitions
 {
-    [Route("competitionattendances")]
-    public class CompetitionAttendanceController
+    public class CompetitionAttendancesController : BaseAttendanceController<IUnitOfCompetition, CompetitionAttendance>
     {
+        public CompetitionAttendancesController(IMapper mapper, IUnitOfCompetition unit, IUnitOfWork allunit) : base(mapper, unit, allunit)
+        {
+        }
+
+        
     }
 }

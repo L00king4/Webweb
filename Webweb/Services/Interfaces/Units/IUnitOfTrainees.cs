@@ -6,7 +6,7 @@ using Webweb.Services.Interfaces.Repos;
 
 namespace Webweb.Services.Interfaces.Units
 {
-    public interface IUnitOfTrainee : IDisposable, IGroupUnitOfWork
+    public interface IUnitOfTrainee : IDisposable, ISpecificUnitOfWork
     {
     }
 }

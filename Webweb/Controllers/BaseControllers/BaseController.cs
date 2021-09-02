@@ -12,7 +12,7 @@ using Webweb.Controllers.Interfaces;
 using Webweb.Services.Interfaces;
 using Webweb.Services.Interfaces.Repos.Base;
 
-namespace Webweb.Controllers
+namespace Webweb.Controllers.BaseControllers
 {
     [Route("api")]
     public class BaseController<
@@ -22,7 +22,7 @@ namespace Webweb.Controllers
     {
         protected IMapper _mapper { get; }
         protected TISpecificUnitOfWork _unit { get; }
-        private IUnitOfWork _allunit { get; }
+        protected IUnitOfWork _allunit { get; }
 
         public BaseController(
             IMapper mapper
@@ -48,8 +48,13 @@ namespace Webweb.Controllers
 
         [HttpGet("[controller]/add")]
         public virtual async Task<int> AddAsync(TModel model) {
-            await _allunit.GetRepo<IBaseModelRepo<TModel, IBaseModel>>().AddAsync(model);
+            await _allunit.GetRepo<IBaseModelRepo<TModel, TIBaseModel>>().AddAsync(model);
             return await _allunit.SaveAsync();
+        }
+
+        [HttpGet("[controller]/{id}")]
+        public virtual async Task<TModel> GetByID(int id) {
+            return await _allunit.GetRepo<IBaseModelRepo<TModel, TIBaseModel>>().GetByIDAsync(id);
         }
 
 
