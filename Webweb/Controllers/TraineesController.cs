@@ -4,14 +4,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using WebEntities.DB.Models.Interfaces;
 using WebEntities.Models;
 using Webweb.Services.Interfaces;
 using Webweb.Services.Interfaces.Units;
 
 namespace Webweb.Controllers
 {
-    public class TraineesController : BaseController<IUnitOfTrainee, Trainee, IBaseTrainee>
+    public class TraineesController : BaseController<IUnitOfTrainee, Trainee, >
     {
         public TraineesController(IMapper mapper, IUnitOfTrainee unit, IAllUnitsOfWork allunit) : base(mapper, unit, allunit)
         {

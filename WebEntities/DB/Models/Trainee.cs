@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using WebEntities.DB.Models.Interfaces;
 using WebEntities.Enums;
 using WebEntities.Models.Competitions;
 using WebEntities.Models.PayedEvents;
