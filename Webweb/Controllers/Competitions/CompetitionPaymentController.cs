@@ -12,7 +12,7 @@ namespace Webweb.Controllers.Competitions
 {
     public class CompetitionPaymentsController : BasePaymentController<IUnitOfCompetition, CompetitionPayment>
     {
-        public CompetitionPaymentsController(IMapper mapper, IUnitOfCompetition unit, IUnitOfWork allunit) : base(mapper, unit, allunit)
+        public CompetitionPaymentsController(IMapper mapper, IUnitOfCompetition unit, IAllUnitsOfWork allunit) : base(mapper, unit, allunit)
         {
         }
 

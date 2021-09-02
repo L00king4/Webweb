@@ -13,7 +13,7 @@ namespace Webweb.Controllers.Competitions
 {
     public class CompetitionAttendancesController : BaseAttendanceController<IUnitOfCompetition, CompetitionAttendance>
     {
-        public CompetitionAttendancesController(IMapper mapper, IUnitOfCompetition unit, IUnitOfWork allunit) : base(mapper, unit, allunit)
+        public CompetitionAttendancesController(IMapper mapper, IUnitOfCompetition unit, IAllUnitsOfWork allunit) : base(mapper, unit, allunit)
         {
         }
 

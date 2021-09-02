@@ -11,7 +11,7 @@ namespace Webweb.Controllers.BaseControllers
 {
     public class BasePaymentController<TISpecificUnitOfWork, TModel> : BaseController<TISpecificUnitOfWork, TModel, IBasePayment> where TModel: class
     {
-        public BasePaymentController(IMapper mapper, TISpecificUnitOfWork unit, IUnitOfWork allunit) : base(mapper, unit, allunit)
+        public BasePaymentController(IMapper mapper, TISpecificUnitOfWork unit, IAllUnitsOfWork allunit) : base(mapper, unit, allunit)
         {
         }
     }

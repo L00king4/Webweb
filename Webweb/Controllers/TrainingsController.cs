@@ -14,7 +14,7 @@ namespace Webweb.Controllers
     [Route("trainings")]
     public class TrainingsController : BaseController<IUnitOfTraining, Training, IBaseEvent>
     {
-        public TrainingsController(IMapper mapper, IUnitOfTraining unit, IUnitOfWork allunit) : base(mapper, unit, allunit)
+        public TrainingsController(IMapper mapper, IUnitOfTraining unit, IAllUnitsOfWork allunit) : base(mapper, unit, allunit)
         {
         }
     }

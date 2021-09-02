@@ -6,7 +6,7 @@ using WebEntities.Models.PayedEvents;
 
 namespace WebEntities.Models.Competitions
 {
-    public class Competition : BaseEvent<CompetitionAttendance, CompetitionPayment>
+    public class Competition : BaseEvent
     {
 
     }

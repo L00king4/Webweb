@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using WebEntities.Models.PayedEvents;
+using WebEntities.Models.BaseModels;
 using Webweb.Services.Interfaces.Repos.Base;
 
-namespace Webweb.Services.Interfaces.Repos.PayedEvents
+namespace Webweb.Services.Interfaces.Units
 {
-    public interface IPayedEventRepo : IBaseEventRepo<PayedEvent>
+    interface IUnitOfGroup
     {
     }
 }

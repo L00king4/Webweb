@@ -6,7 +6,7 @@ using WebEntities.DB.Models.Interfaces;
 
 namespace WebEntities.Models.BaseModels
 {
-    public class BaseEvent<TAttendance, TPayment> : IBaseEvent
+    public class BaseEvent
     {
         [Key]
         public int ID { set; get; }
@@ -18,7 +18,5 @@ namespace WebEntities.Models.BaseModels
         [Range(0, 65535)]
         public decimal? ToPay { set; get; }
         public DateTime? Date { set; get; }
-        private ICollection<TAttendance> Attendances { set; get; }
-        private ICollection<TPayment> Payments { set; get; }
     }
 }

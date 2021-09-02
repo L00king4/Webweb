@@ -13,7 +13,7 @@ namespace Webweb.Controllers.BaseControllers
 {
     public class BaseAttendanceController<TISpecificUnitOfWork, TModel> : BaseController<TISpecificUnitOfWork, TModel, IBaseAttendance> where TModel: class
     {
-        public BaseAttendanceController(IMapper mapper, TISpecificUnitOfWork unit, IUnitOfWork allunit) : base(mapper, unit, allunit)
+        public BaseAttendanceController(IMapper mapper, TISpecificUnitOfWork unit, IAllUnitsOfWork allunit) : base(mapper, unit, allunit)
         {
         }
 

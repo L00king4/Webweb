@@ -14,7 +14,7 @@ namespace Webweb.Services.Repos.Base
         public BaseAttendanceRepo(AppDbContext db) : base(db)
         {
         }
-
+        
         public virtual async Task<bool> AlreadyExistsAsync(IBaseAttendance model)
         {
             return await GetByModelAsync(model) != null;

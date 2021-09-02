@@ -7,10 +7,10 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using WebEntities;
-using WebEntities.DB.Models.Interfaces;
 using Webweb.Controllers.Interfaces;
 using Webweb.Services.Interfaces;
 using Webweb.Services.Interfaces.Repos.Base;
+using Webweb.Services.UnitsOfWork;
 
 namespace Webweb.Controllers.BaseControllers
 {
@@ -22,17 +22,17 @@ namespace Webweb.Controllers.BaseControllers
     {
         protected IMapper _mapper { get; }
         protected TISpecificUnitOfWork _unit { get; }
-        protected IUnitOfWork _allunit { get; }
+        protected AllUnitsOfWork _allunits { get; }
 
         public BaseController(
             IMapper mapper
-            , TISpecificUnitOfWork unit
-            , IUnitOfWork allunit
+            ,TISpecificUnitOfWork unit
+            ,AllUnitsOfWork allunits
         )
         {
             _mapper = mapper;
             _unit = unit;
-            _allunit = allunit;
+            _allunits = allunits;
         }
 
         //private IBaseModelRepo<TModel, IBaseModel> GetRepo() {
@@ -43,7 +43,8 @@ namespace Webweb.Controllers.BaseControllers
         [HttpGet("[controller]/all")]
         public virtual async Task<IEnumerable<TModel>> GetAll()
         {
-            return await _allunit.GetRepo<IBaseModelRepo<TModel, TIBaseModel>>().GetAllAsync();
+            
+            return await _allunits.GetUnit<TISpecificUnitOfWork>().GetRepo<TModel>() _allunit.GetRepo<IBaseModelRepo<TModel, TIBaseModel>>().GetAllAsync();
         }
 
         [HttpGet("[controller]/add")]

@@ -25,8 +25,5 @@ namespace WebEntities.Models
 
         [Range(0, 19)]
         public BeltColor? BeltColor { set; get; }
-        private ICollection<PayedEventPayment> PayedEventPayments { set; get; }
-        private ICollection<CompetitionPayment> CompetitionPayment { set; get; }
-        private ICollection<TrainingPayment> TrainingPayments { set; get; }
     }
 }

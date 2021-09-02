@@ -13,7 +13,7 @@ namespace Webweb.Controllers
 {
     public class TraineesController : BaseController<IUnitOfTrainee, Trainee, IBaseTrainee>
     {
-        public TraineesController(IMapper mapper, IUnitOfTrainee unit, IUnitOfWork allunit) : base(mapper, unit, allunit)
+        public TraineesController(IMapper mapper, IUnitOfTrainee unit, IAllUnitsOfWork allunit) : base(mapper, unit, allunit)
         {
         }
 

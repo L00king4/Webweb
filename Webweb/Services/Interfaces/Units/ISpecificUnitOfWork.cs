@@ -2,17 +2,19 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Webweb.Services.Interfaces.Repos;
+using WebEntities.Models.BaseModels;
+using Webweb.Services.Interfaces.Repos.Base;
 using Webweb.Services.Repos;
 
-namespace Webweb.Services.Interfaces
+namespace Webweb.Services.Interfaces.Units
 {
-    public interface ISpecificUnitOfWork : IDisposable
+    interface ISpecificUnitOfWork : IDisposable
     {
-        IPayedEventRepo Events { get; }
-        IPayedEventAttendanceRepo Attendances { get; }
-        IPayedEventPaymentRepo Payments { get; }
-        TraineeRepo Trainees { get; }
-        Task<int> SaveAsync();
+        IBaseModelRepo<BaseEvent> Events { get; }
+        IBaseModelRepo<BaseAttandance> Attendances { get; }
+        IBaseModelRepo<BasePayment> Payments { get; }
+        public TraineeRepo Trainees { get;}
+        public Task<int> SaveAsync();
+        public IBaseModelRepo<T> GetRepo<T>();
     }
 }

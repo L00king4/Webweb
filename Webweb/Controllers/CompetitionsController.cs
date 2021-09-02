@@ -18,7 +18,7 @@ namespace Webweb.Controllers
     //[Route("competitions")]
     public class CompetitionsController : BaseController<IUnitOfCompetition, Competition, IBaseEvent>
     {
-        public CompetitionsController(IMapper mapper, IUnitOfCompetition unit, IUnitOfWork allunit) : base(mapper, unit, allunit)
+        public CompetitionsController(IMapper mapper, IUnitOfCompetition unit, IAllUnitsOfWork allunit) : base(mapper, unit, allunit)
         {
         }
 

@@ -3,22 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WebEntities;
-using Webweb.Services.Interfaces.Repos;
-using Webweb.Services.Interfaces.Units;
 using Webweb.Services.Repos;
 
 namespace Webweb.Services.UnitsOfWork
 {
-    public class UnitOfTrainee : IUnitOfTrainee
+    public class UnitOfGroup
     {
         private readonly AppDbContext _db;
-        public UnitOfTrainee(AppDbContext db)
-        {
+        public UnitOfGroup(AppDbContext db) {
             _db = db;
-            Trainees = new TraineeRepo(db);
         }
-
-        public ITraineeRepo Trainees { get; private set; }
+        public TraineeRepo Trainees { get; private set; }
 
         public void Dispose()
         {
@@ -27,6 +22,10 @@ namespace Webweb.Services.UnitsOfWork
         public async Task<int> SaveAsync()
         {
             return await _db.SaveChangesAsync();
+        }
+        public T GetRepo<T>()
+        {
+            return (T)GetType().GetProperties().FirstOrDefault(x => typeof(T).IsAssignableFrom(x.PropertyType)).GetValue(this);
         }
     }
 }
