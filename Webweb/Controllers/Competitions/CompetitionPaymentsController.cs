@@ -16,7 +16,7 @@ namespace Webweb.Controllers.Competitions
         public CompetitionPaymentsController(IMapper mapper, IUnitOfCompetition unit, AllUnitOfWork allunit) : base(mapper, unit, allunit)
         {
         }
-
+        
 
     }
 }

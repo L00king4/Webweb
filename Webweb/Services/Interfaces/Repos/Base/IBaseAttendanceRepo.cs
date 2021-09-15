@@ -7,7 +7,8 @@ using WebEntities.DB.Models.BaseModels;
 
 namespace Webweb.Services.Interfaces.Repos.Base
 {
-    public interface IBaseAttendanceRepo<TModel> : IBaseModelRepo<TModel, BaseAttendance> where TModel : class
+    public interface IBaseAttendanceRepo<TModel> : IBaseModelRepo<TModel, BaseAttendance> where TModel : class, IBaseModel
     {
+        public void ClearAttendancesFromEvent(int eventID);
     }
 }

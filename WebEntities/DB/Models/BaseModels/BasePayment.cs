@@ -12,10 +12,10 @@ namespace WebEntities.DB.Models.BaseModels
         public int ID { set; get; }
         public DateTime PayedAt { set; get; } = DateTime.Now;
         [Required]
-        [Range(0, 65535)]
+        [Range(1, 65535)]
         public decimal? Amount { set; get; }
-        [Required]
-        public int? AttendanceID { set; get; }
+        //[Required]
+        //public int? AttendanceID { set; get; }
 
         [Required]
         public int? TraineeID { set; get; }

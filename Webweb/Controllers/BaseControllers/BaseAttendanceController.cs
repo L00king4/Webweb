@@ -14,63 +14,61 @@ using Webweb.Services.UnitsOfWork;
 
 namespace Webweb.Controllers.BaseControllers
 {
-    public class BaseAttendanceController<TISpecificUnitOfWork, TModel> : BaseController<TISpecificUnitOfWork, TModel, BaseAttendance> where TModel : BaseAttendance
+    public class BaseAttendanceController<TISpecificUnitOfWork, TModel> : BaseController<TISpecificUnitOfWork, TModel> where TModel : BaseAttendance
     {
+
         public BaseAttendanceController(IMapper mapper, TISpecificUnitOfWork unit, AllUnitOfWork allunit) : base(mapper, unit, allunit)
         {
         }
 
-        [HttpGet("[controller]/{eventID}")]
+
+        [HttpGet("[controller]/byevent/{eventID}")]
         public async Task<IEnumerable<TModel>> GetByEventID(int eventID)
         {
-
             return await _allunit.GetRepo<IBaseAttendanceRepo<TModel>>().WhereAsync(x => x.EventID == eventID);
         }
 
+        //[HttpGet("[controller]/{eventID}/trainees")]
+        //public async Task<SortedTrainees> GetAttendingTrainees(int eventID)
+        //{
 
-        [HttpGet("[controller]/{eventID}/trainees")]
-        public async Task<SortedTrainees> GetAttendingTrainees(int eventID)
+        //    var attendances = await _allunit.GetRepo<IBaseAttendanceRepo<TModel>>().WhereAsync(x => x.EventID == eventID);
+        //    var trainees = await _allunit.Trainees.GetAllAsync();
+
+        //    var attendingTrainees = trainees.Where(
+        //        x => attendances.Any(
+        //            y => y.TraineeID == x.ID
+        //        )
+        //    );
+        //    var notAttendingTrainees = await Task.Run(() => trainees.Except(attendingTrainees));
+        //    return new SortedTrainees()
+        //    {
+        //        AttendingTrainees = attendingTrainees.ToList(),
+        //        NotAttendingTrainees = notAttendingTrainees.ToList()
+        //    };
+        //}
+
+        [HttpPost("[controller]/add")]
+        public override async Task<int> Add([FromBody] TModel model)
         {
-
-            var attendances = await _allunit.GetRepo<IBaseAttendanceRepo<TModel>>().WhereAsync(x => x.EventID == eventID);
-            var trainees = await _allunit.Trainees.GetAllAsync();
-
-            var attendingTrainees = trainees.Where(
-                x => attendances.Any(
-                    y => y.TraineeID == x.ID
-                )
-            );
-            var notAttendingTrainees = await Task.Run(() => trainees.Except(attendingTrainees));
-            return new SortedTrainees()
+            if (!await _allunit.GetRepo<IBaseAttendanceRepo<TModel>>().AlreadyExistsAsync(model))
             {
-                AttendingTrainees = attendingTrainees.ToList(),
-                NotAttendingTrainees = notAttendingTrainees.ToList()
-            };
+                return await base.Add(model);
+            }
+
+            return -1;
         }
 
-        //[HttpPost("[controller]/add")]
-        //public async Task<int> AddIfUnique([FromBody] CompetitionAttendance model)
-        //{
-        //    if (ModelState.IsValid && !await _allunit.GetRepo<IBaseModelRepo<TModel, IBaseAttendance>>().AlreadyExistsAsync(model))
-        //    {
-        //        await Task.Run(() => _allunit.GetRepo<IBaseModelRepo<TModel, IBaseAttendance>>().AddAsync(model));
-        //        return await _allunit.SaveAsync();
+        [HttpPost("[controller]/remove")]
+        public async Task<int> Remove([FromBody] CompetitionAttendance model)
+        {
+            if (ModelState.IsValid)
+            {
+                await _allunit.GetRepo<IBaseModelRepo<TModel, BaseAttendance>>().RemoveAsync(model);
+                return await _allunit.SaveAsync();
+            }
 
-        //    }
-
-        //    return -1;
-        //}
-
-        //[HttpPost("[controller]/remove")]
-        //public async Task<int> Remove([FromBody] CompetitionAttendance model)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        await _allunit.GetRepo<IBaseModelRepo<TModel, IBaseAttendance>>().RemoveAsync(model);
-        //        return await _allunit.SaveAsync();
-        //    }
-
-        //    return -1;
-        //}
+            return -1;
+        }
     }
 }

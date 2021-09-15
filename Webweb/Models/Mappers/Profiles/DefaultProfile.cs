@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using System.Collections.Generic;
 using WebEntities.Models;
+using Webweb.Models.Competitions;
 
 namespace Webweb.Models.Mappers.Profiles
 {
@@ -8,7 +9,7 @@ namespace Webweb.Models.Mappers.Profiles
     {
         public DefaultProfile()
         {
-
+            CreateMap<Trainee, SortedTraineePayment>();
         }
     }
 }

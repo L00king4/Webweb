@@ -7,7 +7,7 @@ using WebEntities.DB.Models.BaseModels;
 
 namespace Webweb.Services.Interfaces.Repos.Base
 {
-    public interface IBasePaymentRepo<TModel> : IBaseModelRepo<TModel, BasePayment> where TModel : class
+    public interface IBasePaymentRepo<TModel> : IBaseModelRepo<TModel, BasePayment> where TModel : class, IBaseModel
     {
     }
 }

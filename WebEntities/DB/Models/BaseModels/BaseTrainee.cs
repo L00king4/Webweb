@@ -14,10 +14,10 @@ namespace WebEntities.DB.Models.BaseModels
         [Required]
         [StringLength(50, MinimumLength = 4)]
         public string Fullname { set; get; }
-        public byte? Age { set; get; }
         [Required]
         [Range(0, 4)]
         public AgeGroup AgeGroup { set; get; }
+        public DateTime BirthDay { set; get; }
 
         // Email, Phone, ...
 

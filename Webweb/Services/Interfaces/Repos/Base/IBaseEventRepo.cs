@@ -7,7 +7,7 @@ using WebEntities.DB.Models.BaseModels;
 
 namespace Webweb.Services.Interfaces.Repos.Base
 {
-    public interface IBaseEventRepo<TModel> : IBaseModelRepo<TModel, BaseEvent> where TModel : class
+    public interface IBaseEventRepo<TModel> : IBaseModelRepo<TModel, BaseEvent> where TModel : class, IBaseModel
     {
     }
 }

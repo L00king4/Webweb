@@ -8,8 +8,8 @@ namespace Webweb.Models.Competitions
 {
     public class SortedTrainees
     {
-        public IEnumerable<Trainee> AttendingTrainees { set; get; }
-        public IEnumerable<Trainee> NotAttendingTrainees { set; get; }
+        public IEnumerable<SortedTraineePayment> AttendingTrainees { set; get; }
+        public IEnumerable<SortedTraineePayment> NotAttendingTrainees { set; get; }
 
     }
 }

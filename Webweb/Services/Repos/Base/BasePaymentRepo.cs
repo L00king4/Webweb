@@ -10,7 +10,7 @@ using Webweb.Services.Interfaces.Repos.Base;
 
 namespace Webweb.Services.Repos.Base
 {
-    public class BasePaymentRepo<T> : BaseRepo<T>, IBasePaymentRepo<T> where T : class
+    public class BasePaymentRepo<T> : BaseRepo<T>, IBasePaymentRepo<T> where T : BasePayment
     {
         public BasePaymentRepo(AppDbContext db) : base(db)
         {

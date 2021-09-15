@@ -14,7 +14,7 @@ using Webweb.Services.UnitsOfWork;
 
 namespace Webweb.Controllers
 {
-    public class TraineesController : BaseController<IUnitOfTrainee, Trainee, BaseTrainee>
+    public class TraineesController : BaseController<IUnitOfTrainee, Trainee>
     {
         public TraineesController(IMapper mapper, IUnitOfTrainee unit, AllUnitOfWork allunit) : base(mapper, unit, allunit)
         {
@@ -24,11 +24,5 @@ namespace Webweb.Controllers
         //public async Task<IEnumerable<Trainee>> GetAllTrainees() {
         //    return await _unit.Trainees.GetAllAsync();
         //}
-
-        [HttpPost("add")]
-        public async void AddTrainee(Trainee model) {
-            await Task.Run(() => _unit.Trainees.AddAsync(model)) ;
-            await Task.Run(() => _unit.SaveAsync());
-        }
     }
 }

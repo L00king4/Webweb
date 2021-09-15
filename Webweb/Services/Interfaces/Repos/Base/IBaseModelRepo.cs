@@ -7,7 +7,7 @@ using WebEntities.DB.Models.Interfaces;
 
 namespace Webweb.Services.Interfaces.Repos.Base
 {
-    public interface IBaseModelRepo<TModel, TBaseModel> : IBaseRepo<TModel> where TModel : class
+    public interface IBaseModelRepo<TModel, TBaseModel> : IBaseRepo<TModel> where TModel : class, IBaseModel
     {
         public Task<bool> AlreadyExistsAsync(TBaseModel model);
         public Task RemoveAsync(TBaseModel model);

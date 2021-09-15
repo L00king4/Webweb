@@ -6,5 +6,6 @@ namespace WebEntities.DB.Models.Interfaces
 {
     public interface IBaseModel
     {
+        int ID { set; get; }
     }
 }

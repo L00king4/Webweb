@@ -24,7 +24,10 @@ namespace Webweb.Services.Repos.Base
         public virtual async Task RemoveAsync(BaseAttendance model)
         {
             var a = await GetByModelAsync(model);
-            await Task.Run(() => _db.Set<T>().Remove(a));
+            if (a != null)
+            {
+                await Task.Run(() => _db.Set<T>().Remove(a));
+            }
         }
 
         public virtual async Task RemoveRangeAsync(BaseAttendance model)
@@ -37,6 +40,11 @@ namespace Webweb.Services.Repos.Base
             return await FirstAsync(
                 x => x.TraineeID == model.TraineeID && x.EventID == model.EventID
             );
+        }
+
+        public virtual void ClearAttendancesFromEvent(int eventID) {
+            var a = _db.Set<T>().Where(x => x.EventID == eventID);
+            _db.Set<T>().RemoveRange(a.AsEnumerable());
         }
     }
 }
