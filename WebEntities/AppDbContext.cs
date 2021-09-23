@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
-using WebEntities.DB.Models.Interfaces;
+using WebEntities.DB.Models.Trainings;
 using WebEntities.Models;
 using WebEntities.Models.Competitions;
 using WebEntities.Models.PayedEvents;
@@ -24,6 +24,7 @@ namespace WebEntities
         public DbSet<Training> Trainings { set; get; }
         public DbSet<TrainingAttendance> TrainingAttendance { set; get; }
         public DbSet<TrainingPayment> TrainingPayments { set; get; }
+        public DbSet<TrainingSpanPayment> TrainingSpanPayments { set; get; }
 
         public DbSet<Trainee> Trainees { set; get; }
     }

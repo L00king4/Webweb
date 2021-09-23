@@ -11,8 +11,8 @@ namespace WebEntities.DB.Models.BaseModels
         [Key]
         public int ID { set; get; }
         [Required]
-        public int? TraineeID { set; get; }
+        public virtual int TraineeID { set; get; }
         [Required]
-        public int? EventID { set; get; }
+        public virtual int EventID { set; get; }
     }
 }

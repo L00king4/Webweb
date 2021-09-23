@@ -15,20 +15,20 @@
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
     <PackageReference Include="Dapper" Version="2.0.90" />
     <PackageReference Include="JsonObjectSerializer" Version="0.7.6" />
-    <PackageReference Include="Microsoft.AspNetCore.SpaServices" Version="3.1.18" />
+    <PackageReference Include="Microsoft.AspNetCore.SpaServices" Version="3.1.19" />
     <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="3.1.18" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.9" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.9">
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.10" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.10">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="5.0.2" />
-    <PackageReference Include="Microsoft.TypeScript.MSBuild" Version="4.3.5">
+    <PackageReference Include="Microsoft.TypeScript.MSBuild" Version="4.4.2">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Npgsql" Version="5.0.7" />
-    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="5.0.7" />
+    <PackageReference Include="Npgsql" Version="5.0.10" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="5.0.10" />
   </ItemGroup>
 
   <ItemGroup>

@@ -21,7 +21,7 @@ namespace Webweb.Services.Repos.Base
         public virtual async Task<IEnumerable<TModel>> GetAllAsync()
         {
             var elements = await _db.Set<TModel>().ToListAsync();
-            elements.Reverse();
+            elements.Sort((x, y) => x.ID > y.ID ? -1 : 1);
             return elements;
         }
         public virtual async Task<TModel> GetByIDAsync(int id)
@@ -54,6 +54,23 @@ namespace Webweb.Services.Repos.Base
         {
             var model = await _db.Set<TModel>().FindAsync(id);
             if (model != null) { _db.Set<TModel>().Remove(model); }
+        }
+
+        //public virtual async Task Remove(TModel model) {
+        //    _db.Set<TModel>().Remove(model);
+        //}
+
+        public virtual async Task Update(TModel model)
+        {
+            _db.Set<TModel>().Update(model);
+        }
+
+        public virtual async Task UpdateRange(IEnumerable<TModel> models)
+        {
+            if (models.Any(x => x.ID == 0)) {
+                throw new Exception("ID 0 DETECTED ON" + models.ToString());
+            }
+            _db.Set<TModel>().UpdateRange(models);
         }
     }
 }

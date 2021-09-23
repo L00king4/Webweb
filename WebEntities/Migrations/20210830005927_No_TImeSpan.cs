@@ -12,7 +12,7 @@ namespace WebEntities.Migrations
                 table: "TrainingPayments");
 
             migrationBuilder.AddColumn<DateTime>(
-                name: "EndTimePayed",
+                name: "SpanPayedEnd",
                 table: "TrainingPayments",
                 type: "timestamp without time zone",
                 nullable: false,
@@ -22,7 +22,7 @@ namespace WebEntities.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "EndTimePayed",
+                name: "SpanPayedEnd",
                 table: "TrainingPayments");
 
             migrationBuilder.AddColumn<TimeSpan>(

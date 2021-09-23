@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using WebEntities;
 using WebEntities.DB.Models.Interfaces;
 using Webweb.Controllers.Interfaces;
+using Webweb.Filters;
 using Webweb.Services.Interfaces;
 using Webweb.Services.Interfaces.Repos.Base;
 using Webweb.Services.UnitsOfWork;
@@ -36,10 +37,6 @@ namespace Webweb.Controllers.BaseControllers
             _allunit = allunit;
         }
 
-        //private IBaseModelRepo<TModel, IBaseModel> GetRepo() {
-        //    _allunit.GetRepo<IBaseModelRepo<TModel, IBaseModel>>();
-        //}
-
         [HttpGet("[controller]")]
         [HttpGet("[controller]/all")]
         public virtual async Task<IEnumerable<TModel>> GetAll()
@@ -48,17 +45,12 @@ namespace Webweb.Controllers.BaseControllers
         }
 
         [HttpPost("[controller]/add")]
+        [ValidModelFilter]
         public virtual async Task<int> Add([FromBody] TModel model)
         {
-            if (ModelState.IsValid)
-            {
-                var entity = await _allunit.GetRepo<IBaseRepo<TModel>>().AddAsync(model);
-                if (await _allunit.SaveAsync() > 0) {
-                    return entity.ID;
-                }
-            }
-
-            return -1;
+            var entity = await _allunit.GetRepo<IBaseRepo<TModel>>().AddAsync(model);
+            await _allunit.SaveAsync();
+            return entity.ID;
         }
 
         [HttpGet("[controller]/{id}")]
@@ -67,19 +59,28 @@ namespace Webweb.Controllers.BaseControllers
             return await _allunit.GetRepo<IBaseRepo<TModel>>().GetByIDAsync(id);
         }
 
+        [HttpPost("[controller]/update")]
+        [ValidModelFilter]
+        public virtual async Task<int> Update([FromBody] TModel model)
+        {
 
-        //[HttpPost("[controller]/add")]
-        //public virtual async Task<bool> AddIfUnique([FromBody] TModel model)
-        //{
-        //    if (ModelState.IsValid && _allunit.GetRepo<IBaseModelRepo<TModel, TBaseModel>>().GetByModelAsync(model) == null)
-        //    {
+            await _allunit.GetRepo<IBaseRepo<TModel>>().Update(model);
+            return await _allunit.SaveAsync();
+        }
 
-        //        await Task.Run(() => _allunit.GetRepo<IBaseRepo<TModel>>().AddAsync(model));
-        //        return await _allunit.SaveAsync() > 0;
+        [HttpPost("[controller]/updaterange")]
+        [ValidModelFilter]
+        public virtual async Task<int> UpdateRange([FromBody] IEnumerable<TModel> models)
+        {
+            await _allunit.GetRepo<IBaseRepo<TModel>>().UpdateRange(models);
+            return await _allunit.SaveAsync();
+        }
 
-        //    }
-
-        //    return false;
-        //}
+        [HttpGet("[controller]/remove/{ID}")]
+        public virtual async Task<int> Remove(int ID)
+        {
+            await _allunit.GetRepo<IBaseRepo<TModel>>().RemoveByIDAsync(ID);
+            return await _allunit.SaveAsync();
+        }
     }
 }

@@ -10,6 +10,8 @@ using Webweb.Models.Competitions;
 using Webweb.Services.Interfaces;
 using Webweb.Services.Interfaces.Repos.Base;
 using Webweb.Services.UnitsOfWork;
+using Webweb.Filters;
+using WebEntities.Enums;
 
 namespace Webweb.Controllers.BaseControllers
 {
@@ -22,10 +24,20 @@ namespace Webweb.Controllers.BaseControllers
         {
         }
 
+        [HttpGet("[controller]/all")]
+        [ValidModelFilter]
+        public async Task<IEnumerable<TModel>> GetAll([FromQuery] AgeGroup? ageGroup)
+        {
+            return ageGroup != null 
+                ? await _allunit.GetRepo<IBaseEventRepo<TModel>>().GetAllByAgeGroupAsync(ageGroup ?? 0) 
+                : await _allunit.GetRepo<IBaseRepo<TModel>>().GetAllAsync();
+        }
+
         [HttpPost("[controller]/add")]
+        [ValidModelFilter]
         public override async Task<int> Add([FromBody] TModel model)
         {
-            if (ModelState.IsValid && !await _allunit.GetRepo<IBaseEventRepo<TModel>>().AlreadyExistsAsync(model))
+            if (!await _allunit.GetRepo<IBaseEventRepo<TModel>>().AlreadyExistsAsync(model))
             {
                 var entity = await _allunit.GetRepo<IBaseRepo<TModel>>().AddAsync(model);
                 if (await _allunit.SaveAsync() > 0) {

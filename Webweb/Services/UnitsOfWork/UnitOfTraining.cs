@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AutoMapper;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -15,10 +16,11 @@ namespace Webweb.Services.UnitsOfWork
     public class UnitOfTraining : IUnitOfTraining
     {
         private readonly AppDbContext _db;
-        public UnitOfTraining(AppDbContext db)
+        
+        public UnitOfTraining(AppDbContext db, IMapper mapper)
         {
             _db = db;
-            Events = new TrainingRepo(db);
+            Events = new TrainingRepo(db, mapper);
             Attendances = new TrainingAttendanceRepo(db);
             Payments = new TrainingPaymentRepo(db);
             Trainees = new TraineeRepo(db);
@@ -27,6 +29,7 @@ namespace Webweb.Services.UnitsOfWork
         public ITrainingRepo Events { get; private set; }
         public ITrainingAttendanceRepo Attendances { get; private set; }
         public ITrainingPaymentRepo Payments { get; private set; }
+        public ITrainingSpanPaymentRepo SpanPayments { get; private set; }
         public TraineeRepo Trainees { get; private set; }
 
         public void Dispose()

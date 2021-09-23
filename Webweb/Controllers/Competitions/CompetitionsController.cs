@@ -27,7 +27,7 @@ namespace Webweb.Controllers.Competitions
         //}
 
         [HttpGet("[controller]/remove/{eventID}")]
-        public async Task<int> Remove(int eventID) {
+        public override async Task<int> Remove(int eventID) {
             await _unit.Events.RemoveByIDAsync(eventID);
             _unit.Attendances.ClearAttendancesFromEvent(eventID);
             return await _unit.SaveAsync();
@@ -42,7 +42,13 @@ namespace Webweb.Controllers.Competitions
 
             foreach (var paymentGroup in payments)
             {
-                trainees.FirstOrDefault(x => x.ID == paymentGroup.Key).AmountPayed = (decimal)paymentGroup.Sum(x =>x.Amount);
+                try
+                {
+                    trainees.First(x => x.ID == paymentGroup.Key).AmountPayed = (decimal)paymentGroup.Sum(x => x.Amount);
+                }
+                catch { 
+                    
+                }
             }
 
             var attendingTrainees = trainees.Where(

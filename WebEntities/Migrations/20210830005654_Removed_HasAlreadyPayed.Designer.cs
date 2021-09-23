@@ -281,7 +281,7 @@ namespace WebEntities.Migrations
                     b.Property<DateTime>("PayedAt")
                         .HasColumnType("timestamp without time zone");
 
-                    b.Property<DateTime>("StartTimePayed")
+                    b.Property<DateTime>("SpanPayedStart")
                         .HasColumnType("timestamp without time zone");
 
                     b.Property<TimeSpan>("TimePayed")

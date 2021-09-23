@@ -9,10 +9,13 @@ namespace WebEntities.Models.Trainings
 {
     public class Training : BaseEvent
     {
-        [Required]
-        public new DateTime Date { set; get; }
+        //[Required]
+        //public new DateTime Date { set; get; }
         [Required]
         [Range(0, 4)]
-        public AgeGroup AgeGroup { set; get; }
+        public new AgeGroup AgeGroup { set; get; }
+        [Required]
+        [Range(1, 65535)]
+        public decimal MonthlyPass { set; get; }
     }
 }

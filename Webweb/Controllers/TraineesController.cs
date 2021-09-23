@@ -8,6 +8,7 @@ using WebEntities.DB.Models.BaseModels;
 using WebEntities.DB.Models.Interfaces;
 using WebEntities.Models;
 using Webweb.Controllers.BaseControllers;
+using Webweb.Filters;
 using Webweb.Services.Interfaces;
 using Webweb.Services.Interfaces.Units;
 using Webweb.Services.UnitsOfWork;
@@ -20,9 +21,20 @@ namespace Webweb.Controllers
         {
         }
 
-        //[HttpGet("")]
-        //public async Task<IEnumerable<Trainee>> GetAllTrainees() {
-        //    return await _unit.Trainees.GetAllAsync();
-        //}
+        [HttpPost("[controller]/add")]
+        [ValidModelFilter]
+        public override async Task<int> Add([FromBody] Trainee model)
+        {
+            if (!await _unit.Trainees.AlreadyExistsAsync(model))
+            {
+                var entity = await _unit.Trainees.AddAsync(model);
+                if (await _allunit.SaveAsync() > 0)
+                {
+                    return entity.ID;
+                }
+            }
+
+            return -1;
+        }
     }
 }

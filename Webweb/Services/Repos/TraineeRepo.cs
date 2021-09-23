@@ -17,14 +17,16 @@ namespace Webweb.Services.Repos
         {
         }
 
-        public Task<bool> AlreadyExistsAsync(BaseTrainee model)
+        public async Task<bool> AlreadyExistsAsync(BaseTrainee model)
         {
-            throw new NotImplementedException();
+            return await GetByModelAsync(model) != null;
         }
 
-        public Task<Trainee> GetByModelAsync(BaseTrainee model)
+        public async Task<Trainee> GetByModelAsync(BaseTrainee model)
         {
-            throw new NotImplementedException();
+            return await FirstAsync(
+                x => x.AgeGroup == model.AgeGroup && x.BeltColor == model.BeltColor && x.Birthday == model.Birthday && x.Fullname == model.Fullname
+            );
         }
 
         public Task RemoveAsync(BaseTrainee model)

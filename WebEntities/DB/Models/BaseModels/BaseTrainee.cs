@@ -13,15 +13,16 @@ namespace WebEntities.DB.Models.BaseModels
         public int ID { set; get; }
         [Required]
         [StringLength(50, MinimumLength = 4)]
-        public string Fullname { set; get; }
+        public virtual string Fullname { set; get; }
         [Required]
         [Range(0, 4)]
-        public AgeGroup AgeGroup { set; get; }
-        public DateTime BirthDay { set; get; }
+        public virtual AgeGroup AgeGroup { set; get; }
+        public virtual DateTime? Birthday { set; get; }
 
         // Email, Phone, ...
 
-        [Range(0, 19)]
-        public BeltColor? BeltColor { set; get; }
+        [Required]
+        [Range(0, 20)]
+        public virtual BeltColor BeltColor { set; get; }
     }
 }

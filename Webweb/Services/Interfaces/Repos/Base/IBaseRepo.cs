@@ -17,5 +17,8 @@ namespace Webweb.Services.Interfaces.Repos.Base
         public Task<TModel> FirstAsync(Expression<Func<TModel, bool>> expression);
         public Task<TModel> FindAsync(int id);
         public Task RemoveByIDAsync(int id);
+        //public Task Remove(TModel model);
+        public Task Update(TModel model);
+        public Task UpdateRange(IEnumerable<TModel> models);
     }
 }

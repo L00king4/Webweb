@@ -10,17 +10,18 @@ namespace WebEntities.DB.Models.BaseModels
     {
         [Key]
         public int ID { set; get; }
-        public DateTime PayedAt { set; get; } = DateTime.Now;
+        public virtual string Description { set; get; }
+        public virtual DateTime PayedAt { set; get; } = DateTime.Now;
         [Required]
         [Range(1, 65535)]
-        public decimal? Amount { set; get; }
+        public virtual decimal Amount { set; get; }
         //[Required]
         //public int? AttendanceID { set; get; }
 
         [Required]
-        public int? TraineeID { set; get; }
+        public virtual int TraineeID { set; get; }
 
         [Required]
-        public int? EventID { set; get; }
+        public virtual int EventID { set; get; }
     }
 }

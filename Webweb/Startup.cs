@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.AspNetCore.Localization;
 using Webweb.Services.Interfaces.Units;
 using System;
+using Webweb.Filters;
 
 namespace Webweb
 {
@@ -53,7 +54,7 @@ namespace Webweb
             services.AddDbContext<AppDbContext>(options =>
                 options.UseNpgsql(Configuration["db:dev2"])
             );
-            services.AddControllers();
+            services.AddControllers(options => options.Filters.Add(typeof(ValidModelFilter)));
             services.AddAutoMapper(typeof(DefaultProfile));
             services.AddTransient<IUnitOfCompetition, UnitOfCompetition>();
             services.AddTransient<IUnitOfPayedEvent, UnitOfPayedEvent>();

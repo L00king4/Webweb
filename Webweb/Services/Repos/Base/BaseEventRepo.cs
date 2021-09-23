@@ -7,13 +7,19 @@ using WebEntities;
 using WebEntities.DB.Models.Interfaces;
 using WebEntities.DB.Models.BaseModels;
 using Webweb.Services.Interfaces.Repos.Base;
+using WebEntities.Enums;
 
 namespace Webweb.Services.Repos.Base
 {
-    public class BaseEventRepo<T> : BaseRepo<T>, IBaseEventRepo<T> where T : BaseEvent
+    public class BaseEventRepo<TModel> : BaseRepo<TModel>, IBaseEventRepo<TModel> where TModel : BaseEvent
     {
         public BaseEventRepo(AppDbContext db) : base(db)
         {
+        }
+
+        public virtual async Task<IEnumerable<TModel>> GetAllByAgeGroupAsync(AgeGroup ageGroup)
+        {
+            return _db.Set<TModel>().Where(x => x.AgeGroup == ageGroup).AsEnumerable();
         }
 
         public virtual async Task<bool> AlreadyExistsAsync(BaseEvent model)
@@ -21,7 +27,7 @@ namespace Webweb.Services.Repos.Base
             return await GetByModelAsync(model) != null;
         }
 
-        public virtual async Task<T> GetByModelAsync(BaseEvent model)
+        public virtual async Task<TModel> GetByModelAsync(BaseEvent model)
         {
             return await FirstAsync(
                 x => x.Name == model.Name && x.ToPay == model.ToPay && x.Date == model.Date

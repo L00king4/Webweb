@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AutoMapper;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -19,7 +20,8 @@ namespace Webweb.Services.UnitsOfWork
     public class AllUnitOfWork : IUnitOfWork
     {
         private readonly AppDbContext _db;
-        public AllUnitOfWork(AppDbContext db)
+        
+        public AllUnitOfWork(AppDbContext db, IMapper mapper)
         {
             _db = db;
 
@@ -32,7 +34,7 @@ namespace Webweb.Services.UnitsOfWork
             PayedEventAttendances = new PayedEventAttendanceRepo(db);
             PayedEventPayments = new PayedEventPaymentRepo(db);
 
-            Trainings = new TrainingRepo(db);
+            Trainings = new TrainingRepo(db, mapper);
             TrainingAttendances = new TrainingAttendanceRepo(db);
             TrainingPayments = new TrainingPaymentRepo(db);
 

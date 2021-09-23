@@ -9,10 +9,11 @@ namespace WebEntities.Enums
         None,
         Young,
         Elder,
-        Both
+        All
     }
     public enum BeltColor : byte
     {
+        Unknown,
         White,
         GrayWhite,
         Gray,

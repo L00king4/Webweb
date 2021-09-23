@@ -274,7 +274,7 @@ namespace WebEntities.Migrations
                         .IsRequired()
                         .HasColumnType("integer");
 
-                    b.Property<DateTime>("EndTimePayed")
+                    b.Property<DateTime>("SpanPayedEnd")
                         .HasColumnType("timestamp without time zone");
 
                     b.Property<int?>("EventID")
@@ -284,7 +284,7 @@ namespace WebEntities.Migrations
                     b.Property<DateTime>("PayedAt")
                         .HasColumnType("timestamp without time zone");
 
-                    b.Property<DateTime>("StartTimePayed")
+                    b.Property<DateTime>("SpanPayedStart")
                         .HasColumnType("timestamp without time zone");
 
                     b.Property<int?>("TraineeID")
