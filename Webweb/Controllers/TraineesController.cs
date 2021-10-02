@@ -36,5 +36,11 @@ namespace Webweb.Controllers
 
             return -1;
         }
+
+        [HttpGet("[controller]")]
+        [HttpGet("[controller]/all")]
+        public async Task<IEnumerable<Trainee>> GetAll() {
+            return await _unit.Trainees.GetAllAsync();
+        }
     }
 }

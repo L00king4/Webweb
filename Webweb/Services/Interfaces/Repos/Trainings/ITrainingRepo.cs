@@ -12,6 +12,6 @@ namespace Webweb.Services.Interfaces.Repos.Trainings
 {
     public interface ITrainingRepo : IBaseEventRepo<Training>
     {
-        public Task<TrainingMonth> GetTrainingMonthAsync(DateTime date, AgeGroup ageGroup);
+        public Task<TrainingMonth> GetTrainingMonthAsync(DateTime date, AgeGroup? ageGroup);
     }
 }

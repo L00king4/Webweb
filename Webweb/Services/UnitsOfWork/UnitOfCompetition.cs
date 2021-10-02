@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AutoMapper;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -14,10 +15,10 @@ namespace Webweb.Services.UnitsOfWork
     public class UnitOfCompetition : IUnitOfCompetition
     {
         private readonly AppDbContext _db;
-        public UnitOfCompetition(AppDbContext db)
+        public UnitOfCompetition(AppDbContext db, IMapper mapper)
         {
             _db = db;
-            Events = new CompetitionRepo(db);
+            Events = new CompetitionRepo(db, mapper);
             Attendances = new CompetitionAttendanceRepo(db);
             Payments = new CompetitionPaymentRepo(db);
             Trainees = new TraineeRepo(db);

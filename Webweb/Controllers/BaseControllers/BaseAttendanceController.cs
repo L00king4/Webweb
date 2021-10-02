@@ -11,6 +11,7 @@ using Webweb.Models.Competitions;
 using Webweb.Services.Interfaces;
 using Webweb.Services.Interfaces.Repos.Base;
 using Webweb.Services.UnitsOfWork;
+using Webweb.Filters;
 
 namespace Webweb.Controllers.BaseControllers
 {
@@ -21,6 +22,13 @@ namespace Webweb.Controllers.BaseControllers
         {
         }
 
+        [HttpGet("[controller]")]
+        [HttpGet("[controller]/all")]
+        [ValidModelFilter]
+        public async Task<IEnumerable<TModel>> GetAll()
+        {
+            return await _allunit.GetRepo<IBaseAttendanceRepo<TModel>>().GetAllAsync();
+        }
 
         [HttpGet("[controller]/byevent/{eventID}")]
         public async Task<IEnumerable<TModel>> GetByEventID(int eventID)
@@ -28,27 +36,9 @@ namespace Webweb.Controllers.BaseControllers
             return await _allunit.GetRepo<IBaseAttendanceRepo<TModel>>().WhereAsync(x => x.EventID == eventID);
         }
 
-        //[HttpGet("[controller]/{eventID}/trainees")]
-        //public async Task<SortedTrainees> GetAttendingTrainees(int eventID)
-        //{
-
-        //    var attendances = await _allunit.GetRepo<IBaseAttendanceRepo<TModel>>().WhereAsync(x => x.EventID == eventID);
-        //    var trainees = await _allunit.Trainees.GetAllAsync();
-
-        //    var attendingTrainees = trainees.Where(
-        //        x => attendances.Any(
-        //            y => y.TraineeID == x.ID
-        //        )
-        //    );
-        //    var notAttendingTrainees = await Task.Run(() => trainees.Except(attendingTrainees));
-        //    return new SortedTrainees()
-        //    {
-        //        AttendingTrainees = attendingTrainees.ToList(),
-        //        NotAttendingTrainees = notAttendingTrainees.ToList()
-        //    };
-        //}
 
         [HttpPost("[controller]/add")]
+        [ValidModelFilter]
         public override async Task<int> Add([FromBody] TModel model)
         {
             if (!await _allunit.GetRepo<IBaseAttendanceRepo<TModel>>().AlreadyExistsAsync(model))
@@ -59,12 +49,21 @@ namespace Webweb.Controllers.BaseControllers
             return -1;
         }
 
+        [HttpPost("[controller]/addrange/unique")]
+        [ValidModelFilter]
+        public virtual async Task<int> AddUniqueRange([FromBody] IEnumerable<TModel> models)
+        {
+            await _allunit.GetRepo<IBaseAttendanceRepo<TModel>>().AddUniqueRangeAsync(models);
+            return await _allunit.SaveAsync();
+        }
+
         [HttpPost("[controller]/remove")]
+        [ValidModelFilter]
         public async Task<int> Remove([FromBody] CompetitionAttendance model)
         {
             if (ModelState.IsValid)
             {
-                await _allunit.GetRepo<IBaseModelRepo<TModel, BaseAttendance>>().RemoveAsync(model);
+                await _allunit.GetRepo<IBaseAttendanceRepo<TModel>>().RemoveAsync(model);
                 return await _allunit.SaveAsync();
             }
 

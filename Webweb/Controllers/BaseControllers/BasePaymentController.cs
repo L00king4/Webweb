@@ -10,6 +10,7 @@ using Webweb.Services.Interfaces;
 using Webweb.Services.UnitsOfWork;
 using Webweb.Services.Interfaces.Repos.Base;
 using Webweb.Models.Competitions;
+using Webweb.Filters;
 
 namespace Webweb.Controllers.BaseControllers
 {
@@ -17,6 +18,14 @@ namespace Webweb.Controllers.BaseControllers
     {
         public BasePaymentController(IMapper mapper, TISpecificUnitOfWork unit, AllUnitOfWork allunit) : base(mapper, unit, allunit)
         {
+        }
+
+        [HttpGet("[controller]")]
+        [HttpGet("[controller]/all")]
+        [ValidModelFilter]
+        public async Task<IEnumerable<TModel>> GetAll()
+        {
+            return await _allunit.GetRepo<IBasePaymentRepo<TModel>>().GetAllAsync();
         }
 
         //[HttpGet("[controller]/byevent/{eventID}")]

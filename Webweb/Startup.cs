@@ -16,6 +16,7 @@ using Microsoft.AspNetCore.Localization;
 using Webweb.Services.Interfaces.Units;
 using System;
 using Webweb.Filters;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Webweb
 {
@@ -36,16 +37,9 @@ namespace Webweb
             {
                 options.AddPolicy(
                     name: _localhostReactCORS,
-                    builder => builder.AllowAnyOrigin()
+                    builder => builder.WithOrigins("http://localhost:3000", "https://localhost:3000", "http://localhost", "https://localhost")
             .AllowAnyMethod()
-            .WithExposedHeaders("content-disposition")
-            .AllowAnyHeader()
-            .SetPreflightMaxAge(TimeSpan.FromSeconds(3600)));
-                //{
-                //    builder.WithOrigins("http://localhost:3000",
-                //                        "http://192.168.0.105:3000"
-                //                        ).AllowAnyMethod();
-                //});
+            .AllowAnyHeader());
             });
             services.Configure<RequestLocalizationOptions>(options =>
             {

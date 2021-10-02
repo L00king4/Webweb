@@ -9,8 +9,8 @@ namespace WebEntities.Models.Trainings
 {
     public class Training : BaseEvent
     {
-        //[Required]
-        //public new DateTime Date { set; get; }
+        [Required]
+        public new DateTime Date { set; get; }
         [Required]
         [Range(0, 4)]
         public new AgeGroup AgeGroup { set; get; }

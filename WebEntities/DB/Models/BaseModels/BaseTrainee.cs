@@ -15,14 +15,12 @@ namespace WebEntities.DB.Models.BaseModels
         [StringLength(50, MinimumLength = 4)]
         public virtual string Fullname { set; get; }
         [Required]
-        [Range(0, 4)]
         public virtual AgeGroup AgeGroup { set; get; }
         public virtual DateTime? Birthday { set; get; }
 
         // Email, Phone, ...
 
         [Required]
-        [Range(0, 20)]
         public virtual BeltColor BeltColor { set; get; }
     }
 }

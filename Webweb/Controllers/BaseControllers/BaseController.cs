@@ -37,12 +37,12 @@ namespace Webweb.Controllers.BaseControllers
             _allunit = allunit;
         }
 
-        [HttpGet("[controller]")]
-        [HttpGet("[controller]/all")]
-        public virtual async Task<IEnumerable<TModel>> GetAll()
-        {
-            return await _allunit.GetRepo<IBaseRepo<TModel>>().GetAllAsync();
-        }
+        //[HttpGet("[controller]")]
+        //[HttpGet("[controller]/all")]
+        //public virtual async Task<IEnumerable<TModel>> GetAll()
+        //{
+        //    return await _allunit.GetRepo<IBaseRepo<TModel>>().GetAllAsync();
+        //}
 
         [HttpPost("[controller]/add")]
         [ValidModelFilter]
@@ -53,7 +53,17 @@ namespace Webweb.Controllers.BaseControllers
             return entity.ID;
         }
 
-        [HttpGet("[controller]/{id}")]
+        [HttpPost("[controller]/addrange")]
+        [ValidModelFilter]
+        public virtual async Task<int> AddRange([FromBody] IEnumerable<TModel> models)
+        {
+
+            await _allunit.GetRepo<IBaseRepo<TModel>>().AddRangeAsync(models);
+            var asd = await _allunit.SaveAsync();
+            return asd;
+        }
+
+        [HttpGet("[controller]/get/{id}")]
         public virtual async Task<TModel> GetByID(int id)
         {
             return await _allunit.GetRepo<IBaseRepo<TModel>>().GetByIDAsync(id);

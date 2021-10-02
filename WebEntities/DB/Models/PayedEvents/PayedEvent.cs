@@ -7,5 +7,6 @@ namespace WebEntities.Models.PayedEvents
 {
     public class PayedEvent : BaseEvent
     {
+        public virtual DateTime? PayUntil { set; get; }
     }
 }

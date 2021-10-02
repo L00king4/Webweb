@@ -26,7 +26,7 @@ namespace Webweb.Services.UnitsOfWork
             _db = db;
 
             // new Repos();
-            Competitions = new CompetitionRepo(db);
+            Competitions = new CompetitionRepo(db, mapper);
             CompetitionAttendances = new CompetitionAttendanceRepo(db);
             CompetitionPayments = new CompetitionPaymentRepo(db);
 

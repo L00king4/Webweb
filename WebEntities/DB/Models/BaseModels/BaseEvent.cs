@@ -16,11 +16,10 @@ namespace WebEntities.DB.Models.BaseModels
         public virtual string Name { set; get; }
         public virtual string Description { set; get; }
         [Required]
-        [Range(0, 4)]
         public virtual AgeGroup AgeGroup { set; get; }
         [Required]
         [Range(0, 2147483647)]
         public virtual decimal ToPay { set; get; }
-        public virtual DateTime? Date { set; get; }
+        //public virtual DateTime? Date { set; get; }
     }
 }

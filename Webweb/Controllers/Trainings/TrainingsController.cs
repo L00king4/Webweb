@@ -23,7 +23,7 @@ namespace Webweb.Controllers
 
         [HttpGet("[controller]/getmonth/{date}")]
         [ValidModelFilter]
-        public async Task<TrainingMonth> GetTrainingMonth(DateTime date, [FromQuery] AgeGroup ageGroup = AgeGroup.All) {
+        public async Task<TrainingMonth> GetTrainingMonth(DateTime date, [FromQuery] AgeGroup? ageGroup) {
             return await _unit.Events.GetTrainingMonthAsync(date, ageGroup);
         }
     }

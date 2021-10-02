@@ -17,9 +17,11 @@ namespace Webweb.Services.Repos.Base
         {
         }
 
-        public virtual async Task<IEnumerable<TModel>> GetAllByAgeGroupAsync(AgeGroup ageGroup)
+        public virtual async Task<IEnumerable<TModel>> GetAllByAgeGroupAsync(AgeGroup? ageGroup)
         {
-            return _db.Set<TModel>().Where(x => x.AgeGroup == ageGroup).AsEnumerable();
+            return ageGroup == null 
+                ? await base.GetAllAsync() 
+                : _db.Set<TModel>().Where(x => x.AgeGroup == ageGroup).ToList();
         }
 
         public virtual async Task<bool> AlreadyExistsAsync(BaseEvent model)
@@ -30,7 +32,7 @@ namespace Webweb.Services.Repos.Base
         public virtual async Task<TModel> GetByModelAsync(BaseEvent model)
         {
             return await FirstAsync(
-                x => x.Name == model.Name && x.ToPay == model.ToPay && x.Date == model.Date
+                x => x.Name == model.Name && x.ToPay == model.ToPay
             );
         }
 

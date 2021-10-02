@@ -10,5 +10,6 @@ namespace Webweb.Services.Interfaces.Repos.Base
     public interface IBaseAttendanceRepo<TModel> : IBaseModelRepo<TModel, BaseAttendance> where TModel : class, IBaseModel
     {
         public void ClearAttendancesFromEvent(int eventID);
+        public Task AddUniqueRangeAsync(IEnumerable<TModel> models);
     }
 }

@@ -36,34 +36,7 @@ namespace Webweb.Controllers.Competitions
         [HttpGet("[controller]/{eventID}/trainees")]
         public async Task<SortedTrainees> GetSortedTrainees(int eventID)
         {
-            var attendances = await _unit.Attendances.WhereAsync(x => x.EventID == eventID);
-            var trainees = _mapper.Map<IEnumerable<SortedTraineePayment>>(await _unit.Trainees.GetAllAsync());
-            var payments = (await _unit.Payments.WhereAsync(x => x.EventID == eventID)).AsEnumerable().GroupBy(x => x.TraineeID);
-
-            foreach (var paymentGroup in payments)
-            {
-                try
-                {
-                    trainees.First(x => x.ID == paymentGroup.Key).AmountPayed = (decimal)paymentGroup.Sum(x => x.Amount);
-                }
-                catch { 
-                    
-                }
-            }
-
-            var attendingTrainees = trainees.Where(
-                x => attendances.Any(
-                    y => y.TraineeID == x.ID
-                )
-            );
-
-            var notAttendingTrainees = await Task.Run(() => trainees.Except(attendingTrainees));
-
-            return new SortedTrainees()
-            {
-                AttendingTrainees = attendingTrainees.ToList(),
-                NotAttendingTrainees = notAttendingTrainees.ToList()
-            };
+            return await _unit.Events.GetSortedTraineesAsync(eventID);
         }
 
         // 2000-10-10T11:12:12

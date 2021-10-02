@@ -10,6 +10,6 @@ namespace Webweb.Services.Interfaces.Repos.Base
 {
     public interface IBaseEventRepo<TModel> : IBaseModelRepo<TModel, BaseEvent> where TModel : class, IBaseModel
     {
-        public Task<IEnumerable<TModel>> GetAllByAgeGroupAsync(AgeGroup ageGroup);
+        public Task<IEnumerable<TModel>> GetAllByAgeGroupAsync(AgeGroup? ageGroup);
     }
 }

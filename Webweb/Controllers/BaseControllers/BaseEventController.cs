@@ -24,13 +24,12 @@ namespace Webweb.Controllers.BaseControllers
         {
         }
 
+        [HttpGet("[controller]")]
         [HttpGet("[controller]/all")]
         [ValidModelFilter]
         public async Task<IEnumerable<TModel>> GetAll([FromQuery] AgeGroup? ageGroup)
         {
-            return ageGroup != null 
-                ? await _allunit.GetRepo<IBaseEventRepo<TModel>>().GetAllByAgeGroupAsync(ageGroup ?? 0) 
-                : await _allunit.GetRepo<IBaseRepo<TModel>>().GetAllAsync();
+            return await _allunit.GetRepo<IBaseEventRepo<TModel>>().GetAllByAgeGroupAsync(ageGroup); 
         }
 
         [HttpPost("[controller]/add")]
@@ -39,7 +38,7 @@ namespace Webweb.Controllers.BaseControllers
         {
             if (!await _allunit.GetRepo<IBaseEventRepo<TModel>>().AlreadyExistsAsync(model))
             {
-                var entity = await _allunit.GetRepo<IBaseRepo<TModel>>().AddAsync(model);
+                var entity = await _allunit.GetRepo<IBaseEventRepo<TModel>>().AddAsync(model);
                 if (await _allunit.SaveAsync() > 0) {
                     return entity.ID;
                 }

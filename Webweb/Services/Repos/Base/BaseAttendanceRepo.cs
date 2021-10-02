@@ -7,10 +7,11 @@ using WebEntities;
 using WebEntities.DB.Models.Interfaces;
 using WebEntities.DB.Models.BaseModels;
 using Webweb.Services.Interfaces.Repos.Base;
+using Microsoft.EntityFrameworkCore;
 
 namespace Webweb.Services.Repos.Base
 {
-    public class BaseAttendanceRepo<T> : BaseRepo<T>, IBaseAttendanceRepo<T> where T : BaseAttendance
+    public class BaseAttendanceRepo<TModel> : BaseRepo<TModel>, IBaseAttendanceRepo<TModel> where TModel : BaseAttendance
     {
         public BaseAttendanceRepo(AppDbContext db) : base(db)
         {
@@ -26,7 +27,7 @@ namespace Webweb.Services.Repos.Base
             var a = await GetByModelAsync(model);
             if (a != null)
             {
-                await Task.Run(() => _db.Set<T>().Remove(a));
+                await Task.Run(() => _db.Set<TModel>().Remove(a));
             }
         }
 
@@ -35,7 +36,7 @@ namespace Webweb.Services.Repos.Base
             throw new NotImplementedException();
         }
 
-        public async Task<T> GetByModelAsync(BaseAttendance model)
+        public async Task<TModel> GetByModelAsync(BaseAttendance model)
         {
             return await FirstAsync(
                 x => x.TraineeID == model.TraineeID && x.EventID == model.EventID
@@ -43,8 +44,19 @@ namespace Webweb.Services.Repos.Base
         }
 
         public virtual void ClearAttendancesFromEvent(int eventID) {
-            var a = _db.Set<T>().Where(x => x.EventID == eventID);
-            _db.Set<T>().RemoveRange(a.AsEnumerable());
+            var a = _db.Set<TModel>().Where(x => x.EventID == eventID);
+            _db.Set<TModel>().RemoveRange(a.AsEnumerable());
+        }
+
+        public virtual async Task AddUniqueRangeAsync(IEnumerable<TModel> models)
+        {
+            foreach(var model in models)
+            {
+                bool hasAlready = await _db.Set<TModel>().AnyAsync(x => x.EventID == model.EventID && x.TraineeID == model.TraineeID);
+                if (!hasAlready) {
+                    await AddAsync(model);
+                }
+            }
         }
     }
 }
